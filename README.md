@@ -171,7 +171,7 @@ This will have created some backend resources including some S3 buckets.  You sh
 
 1. In your AWS console, go to AppSync service.
 2. Click **Create API**. Select `Author from scratch`. 
-3. Enter `TechSummit-AppSync-Workshop` and **Create**.
+3. Enter name of the API as: `TechSummit-AppSync-Workshop` and **Create**.
 4. Select 'Schema' on the left-hand panel.
 5. Paste the following code in the Schema console.
 ```
@@ -210,6 +210,10 @@ schema {
 	query: Query
 }
 ```
+6. Save schema.
+7. Next, let's set up the AppSync data sources. Select `Data sources` on the left side.<br/>
+<img src="aws-appsync-data-source1.png" />
+
 
 ## VI. Verifying your Elasticsearch cluster installation
 
