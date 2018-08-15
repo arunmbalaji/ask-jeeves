@@ -100,14 +100,9 @@ To participate with your mobile you need to have the Expo Client installed (Andr
 ## V. Mobile application and Cognito Authentication.
 
 1. `git clone https://github.com/arunmbalaji/ask-jeeves.git`
-2. cd to the project directory "ask-jeeves".
-3. Firstly Install Node.js (download from https://nodejs.org/en/). This will give us npm.
+2. cd to the project directory "ask-jeeves". 
+3. `npm install; npm start`. 
 4. We can then install some dependencies:
->npm install -g react-native-cli
-
-Yarn is also widely used instead of npm - many online demos use it so it's not bad idea to install, but npm will work fine as well.
-
->npm install -g yarn
 
 >npm install -g awsmobile-cli
 
