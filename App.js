@@ -11,7 +11,10 @@ import { ApolloProvider } from 'react-apollo';
 import SearchScreen from './src/Searchscreen/SearchScreen'
 import TotalCost from './src/TotalCost/TotalCost'
 
-
+import { withAuthenticator } from 'aws-amplify-react-native';
+import Amplify from 'aws-amplify';
+import aws_exports from './aws-exports';
+Amplify.configure(aws_exports);
 
 const client = new AWSAppSyncClient({
   url: "https://k5evtrl4undvng2tspppikphpa.appsync-api.ap-southeast-1.amazonaws.com/graphql",
@@ -57,19 +60,18 @@ const TabNavigation = createBottomTabNavigator({
     }
 });
 
-
 /*Below lines enable react native components to make use of the Apollo 
 graphql client and the rehydrated cache */
 const WithProvider = () => (
- <ApolloProvider client={client}>
-   <Rehydrated>
+  <ApolloProvider client={client}>
+    <Rehydrated>
       <TabNavigation />
     </Rehydrated>
   </ApolloProvider>
 );
 
-export default WithProvider
-
+//export default WithProvider
+export default withAuthenticator(WithProvider);
 
 const styles = StyleSheet.create({
   container: {
