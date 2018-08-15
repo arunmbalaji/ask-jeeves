@@ -11,13 +11,39 @@ import { ApolloProvider } from 'react-apollo';
 import SearchScreen from './src/Searchscreen/SearchScreen'
 import TotalCost from './src/TotalCost/TotalCost'
 
+import AppSync from './AppSync.js';
+import { AUTH_TYPE } from "aws-appsync/lib/link/auth-link";
+
+// const client = new AWSAppSyncClient({
+//   url: "https://k5evtrl4undvng2tspppikphpa.appsync-api.ap-southeast-1.amazonaws.com/graphql",
+//   region: "ap-southeast-1",
+//   auth: {
+//     type: "API_KEY",
+//     apiKey: "da2-ftsbgnwinnfdxct7xehnq26niy",
+//   }
+// });
+
 const client = new AWSAppSyncClient({
-  url: "https://k5evtrl4undvng2tspppikphpa.appsync-api.ap-southeast-1.amazonaws.com/graphql",
-  region: "ap-southeast-1",
+  url: AppSync.graphqlEndpoint,
+  region: AppSync.region,
   auth: {
-    type: "API_KEY",
-    apiKey: "da2-ftsbgnwinnfdxct7xehnq26niy",
-  }
+      type: AUTH_TYPE.API_KEY,
+      apiKey: AppSync.apiKey,
+
+      // type: AUTH_TYPE.AWS_IAM,
+      // Note - Testing purposes only
+      /*credentials: new AWS.Credentials({
+          accessKeyId: AWS_ACCESS_KEY_ID,
+          secretAccessKey: AWS_SECRET_ACCESS_KEY
+      })*/
+
+      // Amazon Cognito Federated Identities using AWS Amplify
+      //credentials: () => Auth.currentCredentials(),
+
+      // Amazon Cognito user pools using AWS Amplify
+      // type: AUTH_TYPE.AMAZON_COGNITO_USER_POOLS,
+      // jwtToken: async () => (await Auth.currentSession()).getIdToken().getJwtToken(),
+  },
 });
 
 

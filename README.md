@@ -378,8 +378,73 @@ query testquery {
   } 
 }
 ```
+Additional queries
+
 
 <a name="integration"></a>
 ## VII. Integrate mobile application with AppSync.
-1. Open the Cloud9 IDE.
-3. Edit `App.js`
+1. Open the AppSync Console.<br/>
+2. Click the APIs<br/>
+3. Selec the API you have created<br/>
+4. Scroll down to the bottom of the page<br/>
+5. Select the React Native option<br/>
+6. Download the AppSync.js file to your local laptop and upload it under ask-jeeves/ folder via cloud9.In cloud9, you can upload local files from the files menu<br/>
+7. From cloud9 IDE, open the App.js file<br/>
+8. Uncomment below lines in the App.js<br />
+```
+[...]
+import AppSync from './AppSync.js';
+import { AUTH_TYPE } from "aws-appsync/lib/link/auth-link";
+[...]
+const client = new AWSAppSyncClient({
+  url: AppSync.graphqlEndpoint,
+  region: AppSync.region,
+  auth: {
+      type: AUTH_TYPE.API_KEY,
+      apiKey: AppSync.apiKey,
+  },
+});
+```<br />
+9. Once updated, npm start and verify the applcation.<br /><br />
+
+##Appendix A ElasticSearch queries to check
+1. To execute the queries, go to elasticsearch console and open the elasticsearch Kibana URL <br />
+2. Once Kibana opens, click the Dev tools option.<br />
+3. One by one you can copy paste the below queries to check the schema and data <br />
+4. To check the schema of the index <br />
+    ```
+    GET /amazonec2_new/_mapping
+    ```
+5. To search against any index <br />
+    ```
+    GET /amazonec2_new/_search
+    {   
+      "query": {
+        "query_string" : {
+            "query" : "(\"32 GiB\") AND (8) AND (RHEL) AND (Mumbai) AND (Shared) AND (NA) AND (m4.2xlarge)"
+        }
+      }
+    }
+    ```
+6. To Get the number of documents in a given index<br />
+    ```
+    GET /amazonec2_new/AmazonEC2/_count
+    ```
+7. To do Source filtering and search against only certain fields <br />
+    ```
+    GET /amazonec2_new/_search
+    {
+      "_source": [ "product.attributes.instanceType","product.attributes.vcpu","product.attributes.operatingSystem" ],
+      "query": {
+          "query_string" : {
+              "fields" : ["product.attributes.vcpu","product.attributes.memory","product.attributes.location","product.attributes.tenancy","product.attributes.operatingSystem","product.attributes.instanceType"],
+            
+              "query" : "(4) AND (16 AND GiB) AND (Mumbai) AND (Shared) AND (Linux)"
+            }
+        }
+    }
+    ```
+8. To retrieve the individual document<br />
+    ```
+    GET /amazonec2_new/AmazonEC2/224
+    ```
