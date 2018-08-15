@@ -10,32 +10,32 @@ import gql from 'graphql-tag'
 /*These are the queries will be used by the component to show the
 search results. These are exactly same as the appsync queries*/
 
-// const SearchProducts = gql`
-//   query Test ($searchQuery: String) {
-//     listProducts(searchstring: $searchQuery) {
-//       id
-//       attributes {
-//         instanceType
-//         vcpu
-//         memory
-//         location
-//       }
-//     }
-//   }
-// `
-// const ListProducts = gql`
-//   query {
-//     listProducts {
-//       id
-//       attributes {
-//         instanceType
-//         vcpu
-//         memory
-//         location
-//       }
-//     }
-//   }
-// `
+const SearchProducts = gql`
+  query Test ($searchQuery: String) {
+    listProducts(searchstring: $searchQuery) {
+      id
+      attributes {
+        instanceType
+        vcpu
+        memory
+        location
+      }
+    }
+  }
+`
+const ListProducts = gql`
+  query {
+    listProducts {
+      id
+      attributes {
+        instanceType
+        vcpu
+        memory
+        location
+      }
+    }
+  }
+`
 
 class SearchScreen extends React.Component {
 
