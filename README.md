@@ -80,10 +80,10 @@ To participate with your mobile you need to have the Expo Client installed (Andr
 <a name="customize-cloud9"></a>
 ## IV. QR Code friendly Cloud9 theme
 
-1. Go to the newly cloud9 environment and click the settings, select THEMES(top right corner near cloud9 symbol). Select one of the Classic theme and night based color ( this is needed for the QR code to be visible for the expo client).<br/>
+1. Go to the newly cloud9 environment and click the settings(top right corner near cloud9 symbol), scroll down to bottom and select THEMES. Select one of the Classic theme and night based color ( this is needed for the QR code to be visible for the expo client).<br/>
 <img src="images/aws-cloud9-theme1.png" width="33%" />
 2. Once the theme got changed, open terminal window. The current working directory will be whatever the environment name you have given during the cloud9 create environment steps.<br/>
-3. Open a shell/terminal and run command `create-react-native-app Test`.<br/>
+3. Go to shell/terminal and run command `create-react-native-app Test`.<br/>
 <img src="images/aws-cloud9-theme2.png" width="33%" />
 <img src="images/aws-cloud9-theme3.png" width="33%" />
 4. Once the creation is success, you will see the final confirmation as below. Also, in your cloud9 IDE, you will see the project folder “Test”.<br/>
@@ -189,12 +189,14 @@ Amplify.configure(aws_exports);
 ```
 Next, instead of having the default export on the App class we’ll use the HOC as the default export:
 ```
-class App extends React.Component {  // Remove export default from here
-  // all of this code stays the same
-}
+[...]
+const WithProvider = () => (
+[...]
+);
 
-// Add this line after the App definition
-export default withAuthenticator(App);
+
+//export default WithProvider
+export default withAuthenticator(WithProvider);
 ```
 
 Save your changes.  If you are still running the App it should update automatically. 
