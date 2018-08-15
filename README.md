@@ -212,11 +212,16 @@ schema {
 ```
 6. Save schema.
 7. Next, let's set up the AppSync data sources. Select `Data sources` on the left side.<br/>
-<img src="images/aws-appsync-data-source1.png" />
-<img src="images/aws-appsync-data-source2.png" />
+<img src="images/aws-appsync-data-source1.png" /><br/>
+8. After the data source is created, you will see:<br/>
+<img src="images/aws-appsync-data-source2.png" /><br/>
 
-8. Now, lets set up AppSync integration with Cognito for authentication.<br/>
-<img src="images/aws-appsync-data-source1.png" />
+9. Now, lets set up AppSync integration with Cognito for authentication. AppSync => Settings => Select `Cognito user pools`. <br/>
+<img src="images/aws-appsync-data-cognito1.png" /><br/>
+
+10. Select the `Cognito user pool created via awsmobile-cli`.<br/>
+<img src="images/aws-appsync-data-cognito2.png" />
+
 
 
 ## VI. Verifying your Elasticsearch cluster installation
