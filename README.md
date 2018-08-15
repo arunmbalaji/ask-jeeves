@@ -9,6 +9,8 @@
 | 5.   | [Mobile application and Cognito authentication](#clone-mobile-code)
 | 6.   | [AppSync Schema ](#appsync-schema)|
 | 7.   | [Integration and testing ](#integration)|
+| #.   | [Appendix A - Elasticsearch Queries ](#AppendixA)|
+| #.   | [Appendix B - Resolver templates reference ](#AppendixB)|
 
 <img src="images/aws-arch-diagram.png" />
 
@@ -343,10 +345,6 @@ Response mapping template:
             "operatingSystem": $entry.get('_source').product.attributes.operatingSystem,
             "tenancy": $entry.get('_source').product.attributes.tenancy,
             "preInstalledSw": $entry.get('_source').product.attributes.preInstalledSw
-          },
-          "ondemand": {
-            "term": $entry.get('_source').terms.OnDemand[0].priceDimensions[0].description,
-            "hourlyrate": $entry.get('_source').terms.OnDemand[0].priceDimensions[0].pricePerUnit.USD
           }
         })
   $util.toJson($myMap)      
@@ -370,15 +368,20 @@ query testquery {
         vcpu
         memory
       }
-      ondemand {
-        term
-        hourlyrate
-      }
 
   } 
 }
 ```
-Additional queries
+20. Additional queries to be created<br />
+### Activity 1
+a. The above query retrieves only instanceType/vcpu/memory <br />
+b. Modify the query and resolvers to retrieve the pricing details also from the elastic search. Refer the Appendix A for the elasticsearch query details <br /><br />
+### Activity 2
+a. Add a new query to the schema which retrieves the individual document by passing the id <br />
+### Activity 3
+a. Create a new query to search the elastic search different indices based on the AWS product type passed as a argument. for Eg. if we pass, EC2 , it should search against amazonec2_NEW index, if we pass RDS, it should search against amazonrds.
+
+21. Refer the Appendix B for the reference links for play around resolver templates. Resolver templates give lot of flexibility to play around the responses and requests of API requests. 
 
 
 <a name="integration"></a>
@@ -407,15 +410,20 @@ const client = new AWSAppSyncClient({
 ```
 9. Once updated, npm start and verify the applcation.<br /><br />
 
+<a name="AppendixA"></a>
 ## Appendix A ElasticSearch queries to check
 1. To execute the queries, go to elasticsearch console and open the elasticsearch Kibana URL <br />
 2. Once Kibana opens, click the Dev tools option.<br />
 3. One by one you can copy paste the below queries to check the schema and data <br />
-4. To check the schema of the index <br />
+4. To get all the available indices in Elasticsearch domain<br />
+    ```
+    GET /_cat/indices?v
+    ```
+5. To check the schema of the index <br />
     ```
     GET /amazonec2_new/_mapping
     ```
-5. To search against any index <br />
+6. To search against any index <br />
     ```
     GET /amazonec2_new/_search
     {   
@@ -426,11 +434,11 @@ const client = new AWSAppSyncClient({
       }
     }
     ```
-6. To Get the number of documents in a given index<br />
+7. To Get the number of documents in a given index<br />
     ```
     GET /amazonec2_new/AmazonEC2/_count
     ```
-7. To do Source filtering and search against only certain fields <br />
+8. To do Source filtering and search against only certain fields <br />
     ```
     GET /amazonec2_new/_search
     {
@@ -444,7 +452,14 @@ const client = new AWSAppSyncClient({
         }
     }
     ```
-8. To retrieve the individual document<br />
+9. To retrieve the individual document<br />
     ```
     GET /amazonec2_new/AmazonEC2/224
     ```
+
+<a name="AppendixB"></a>
+## Appendix B - Resolver template reference
+1. Sample request/response templates -<a href="https://github.com/serverless/serverless-graphql/tree/master/app-backend/appsync/dynamo-elasticsearch-lambda/mapping-templates">Click Here</a><br />
+2. Util function reference - <a href="https://docs.aws.amazon.com/appsync/latest/devguide/resolver-util-reference.html">Click Here</a><br />
+3. Context object reference - <a href="https://docs.aws.amazon.com/appsync/latest/devguide/resolver-context-reference.html#aws-appsync-resolver-context-reference-util">Click Here</a><br />
+4. Templating language/VTL reference - <a href="https://docs.aws.amazon.com/appsync/latest/devguide/resolver-mapping-template-reference-programming-guide.html">Click Here</a><br />
