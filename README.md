@@ -99,9 +99,10 @@ To participate with your mobile you need to have the Expo Client installed (Andr
 <a name="clone-mobile-code"></a>
 ## V. Mobile application and Cognito Authentication.
 
+0. Go to your Cloud9 terminal.
 1. `git clone https://github.com/arunmbalaji/ask-jeeves.git`
 2. cd to the project directory "ask-jeeves". 
-3. `npm install; npm start`. 
+3. `npm install`. 
 4. We can then install some dependencies:
 
 >npm install -g awsmobile-cli
