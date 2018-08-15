@@ -166,7 +166,50 @@ Happy coding with awsmobile!
 
 This will have created some backend resources including some S3 buckets.  You should now see your project in the AWS Mobile Hub console.
 
+<a name="appsync-schema"></a>
+## VI. AppSync Schema
 
+1. In your AWS console, go to AppSync service.
+2. Click **Create API**. Select `Author from scratch`. 
+3. Enter `TechSummit-AppSync-Workshop` and **Create**.
+4. Select 'Schema' on the left-hand panel.
+5. Paste the following code in the Schema console.
+```
+type Query {
+	listProducts(searchstring: String): [item]
+	getec2details(id: ID!): item
+}
+
+type ec2attributes {
+	instanceType: String
+	location: String
+	servicecode: String
+	memory: String
+	vcpu: String
+	tenancy: String
+	operatingSystem: String
+	preInstalledSw: String
+}
+
+type item {
+	id: ID!
+	attributes: ec2attributes
+	ondemand: pricing
+	reserved3year: pricing
+}
+
+type pricing {
+	term: String
+	hourlyrate: String
+	monthlyrate: String
+	yearlyrate: String
+	upfrontfee: String
+}
+
+schema {
+	query: Query
+}
+```
 
 ## VI. Verifying your Elasticsearch cluster installation
 
