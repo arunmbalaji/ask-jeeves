@@ -166,6 +166,38 @@ Happy coding with awsmobile!
 
 This will have created some backend resources including some S3 buckets.  You should now see your project in the AWS Mobile Hub console.
 
+### Add Authentication.
+>**awsmobile user-signin enable -p**
+
+> * Sign-in is currently disabled, what do you want to do next Go to advanced settings
+> * Which sign-in method you want to configure Cognito UserPools (currently disabled)
+> * How are users going to login Username
+> * Password minimum length (number of characters) 6
+> * Password character requirements lowercase, numbers
+
+>**awsmobile push**
+This will have created a new Cognito user pool that you can view in the AWS console.  This is used to manage logins to our App.  Now it's simple to add authentication:
+
+In App.js, below the React Native imports let’s import the withAuthenticator HOC (Higher Order Component):
+```
+import { withAuthenticator } from 'aws-amplify-react-native';
+import Amplify from 'aws-amplify';
+import aws_exports from './aws-exports';
+Amplify.configure(aws_exports);
+```
+Next, instead of having the default export on the App class we’ll use the HOC as the default export:
+```
+class App extends React.Component {  // Remove export default from here
+  // all of this code stays the same
+}
+
+// Add this line after the App definition
+export default withAuthenticator(App);
+```
+
+Save your changes.  If you are still running the App it should update automatically. 
+
+
 <a name="appsync-schema"></a>
 ## VI. AppSync Schema
 
@@ -232,7 +264,7 @@ schema {
 click **Attach**.
 14. Add the request and response templates. <br/>
 <img src="images/aws-appsync-resolver2.png" /><br/>
-15. Request template:
+15. Request mapping template:
 ```
 #** 
   The 'params' key accepts any valid Elasticsearch DSL expression. 
@@ -280,7 +312,7 @@ click **Attach**.
 }
 ```
 
-Response Template:
+Response mapping template:
 ```
 #** 
   $context.result contains the full response of the Elasticsearch query.
@@ -314,6 +346,7 @@ Response Template:
 
 ```
 
+16. 
 
 
 
