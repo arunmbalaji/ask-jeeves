@@ -5,10 +5,10 @@
 | 1.   | [Generate Cloud9 SSH Key](#cloud9-ssh-key) |
 | 2.   | [Setup EC2, Cloud9, Elasticsearch, ...](#run-cfn) |
 | 3.   | [Install Expo mobile client](#install-expo)
-| 4.   | [QR Code friendly Cloud9 theme](#customize-cloud9)|
+| 4.   | [QR code friendly Cloud9 theme](#customize-cloud9)|
 | 5.   | [Mobile application and Cognito authentication](#clone-mobile-code)
-| 6.   | [AppSync Schema ]|
-| 7.   | [Integration and testing ]|
+| 6.   | [AppSync Schema ](#appsync-schema)|
+| 7.   | [Integration and testing ](#integration)|
 
 <a name="cloud9-ssh-key"></a>
 ##  I. Generate Cloud9 SSH Key
@@ -166,11 +166,216 @@ Happy coding with awsmobile!
 
 This will have created some backend resources including some S3 buckets.  You should now see your project in the AWS Mobile Hub console.
 
+### Add Authentication.
+>**awsmobile user-signin enable -p**
+
+> * Sign-in is currently disabled, what do you want to do next Go to advanced settings
+> * Which sign-in method you want to configure Cognito UserPools (currently disabled)
+> * How are users going to login Username
+> * Password minimum length (number of characters) 6
+> * Password character requirements lowercase, numbers
+
+>**awsmobile push**
+This will have created a new Cognito user pool that you can view in the AWS console.  This is used to manage logins to our App.  
+
+Next, let us create a new Cognito user.
+* Go to Cognito service in the AWS console and select `Manage Userpools`.
+* Select the userpool we created via awsmobile. 
+* Select **users and groups** and create a new user.
+
+Now it's simple to add authentication:
+
+In App.js, below the React Native imports let’s import the withAuthenticator HOC (Higher Order Component):
+```
+import { withAuthenticator } from 'aws-amplify-react-native';
+import Amplify from 'aws-amplify';
+import aws_exports from './aws-exports';
+Amplify.configure(aws_exports);
+```
+Next, instead of having the default export on the App class we’ll use the HOC as the default export:
+```
+class App extends React.Component {  // Remove export default from here
+  // all of this code stays the same
+}
+
+// Add this line after the App definition
+export default withAuthenticator(App);
+```
+
+Save your changes.  If you are still running the App it should update automatically. 
 
 
-## VI. Verifying your Elasticsearch cluster installation
+<a name="appsync-schema"></a>
+## VI. AppSync Schema
 
-1.	Open the cloud9 terminal
-2.	Issue the below command `curl -XGET <your es domain name – copy from cloudformation output>/amazonec2_new/_count`
-<img src="images/aws-cloud9-es1.png" />
-<img src="images/aws-cloud9-es2.png" />
+1. In your AWS console, go to AppSync service.
+2. Click **Create API**. Select `Author from scratch`. 
+3. Enter name of the API as: `TechSummit-AppSync-Workshop` and **Create**.
+4. Next, let's set up the AppSync data sources. Select `Data sources` on the left side.<br/>
+<img src="images/aws-appsync-data-source1.png" /><br/>
+5. After the data source is created, you will see:<br/>
+<img src="images/aws-appsync-data-source2.png" /><br/>
+
+6. Now, lets set up AppSync integration with Cognito for authentication. AppSync => Settings => Select `Cognito user pools`. <br/>
+<img src="images/aws-appsync-cognito1.png" /><br/>
+
+7. Select the `Cognito user pool created via awsmobile-cli`.<br/>
+<img src="images/aws-appsync-cognito2.png" />
+
+8. Enable AppSync logging.
+<img src="images/aws-appsync-logging.png" />
+
+9. Save the settings.
+
+10. Select 'Schema' on the left-hand panel.
+11. Paste the following code in the Schema console.
+```
+type Query {
+  listProducts(searchstring: String): [item]
+  getec2details(id: ID!): item
+}
+
+type ec2attributes {
+  instanceType: String
+  location: String
+  servicecode: String
+  memory: String
+  vcpu: String
+  tenancy: String
+  operatingSystem: String
+  preInstalledSw: String
+}
+
+type item {
+  id: ID!
+  attributes: ec2attributes
+  ondemand: pricing
+  reserved3year: pricing
+}
+
+type pricing {
+  term: String
+  hourlyrate: String
+  monthlyrate: String
+  yearlyrate: String
+  upfrontfee: String
+}
+
+schema {
+  query: Query
+}
+```
+12. Save schema.
+13. Attach `Resolvers` to `listProducts` query.<br/>
+<img src="images/aws-appsync-resolver1.png" /><br/>
+click **Attach**.
+14. Add the request and response templates. <br/>
+<img src="images/aws-appsync-resolver2.png" /><br/>
+15. Request mapping template:
+```
+#** 
+  The 'params' key accepts any valid Elasticsearch DSL expression. 
+  You must replace the <index>, <type>, and <field> placeholders with actual values. 
+*#
+{
+#if($util.isNullOrEmpty(${context.args.searchstring}))
+  #set($sear="*")
+#else 
+  #set($sear=${context.args.searchstring})
+#end
+    "version":"2017-02-28",
+    "operation":"GET",
+    "path":"/amazonec2_new/_search",
+    "params":{
+      "body": {
+            "from": 0,
+            "size": 20,
+        "_source": [  "product.attributes.instanceType",
+                    "product.attributes.operatingSystem",
+                            "product.attributes.vcpu",
+                            "product.attributes.memory",
+                            "product.attributes.location",
+                            "product.attributes.tenancy",
+                            "product.attributes.preInstalledSw",
+                            "product.attributes.servicecode",
+                            "terms.OnDemand"
+                        ],
+        "query": {
+            "query_string" : {
+              "fields" : ["product.attributes.vcpu",
+                      "product.attributes.memory",
+                            "product.attributes.location",
+                            "product.attributes.tenancy",
+              "product.attributes.operatingSystem",
+                            "product.attributes.preInstalledSw",
+                            "product.attributes.instanceType"
+                            ],
+              "query" : "${sear}"
+          }
+      }
+
+      }
+    }
+}
+```
+
+Response mapping template:
+```
+#** 
+  $context.result contains the full response of the Elasticsearch query.
+  Select a subset of information or iterate through hits to return the
+  same shape as is expected by this field.
+*#
+[
+    #foreach($entry in $context.result.hits.hits) 
+        ## $velocityCount starts at 1 and increments with the #foreach loop **
+        #if( $velocityCount > 1 ) , #end
+        #set( $myMap = {
+        "id": $entry.get('_id'),
+          "attributes": {
+            "instanceType": $entry.get('_source').product.attributes.instanceType,
+            "location": $entry.get('_source').product.attributes.location,
+            "servicecode": $entry.get('_source').product.attributes.servicecode,
+            "memory": $entry.get('_source').product.attributes.memory,
+            "vcpu": $entry.get('_source').product.attributes.vcpu,
+            "operatingSystem": $entry.get('_source').product.attributes.operatingSystem,
+            "tenancy": $entry.get('_source').product.attributes.tenancy,
+            "preInstalledSw": $entry.get('_source').product.attributes.preInstalledSw
+          },
+          "ondemand": {
+            "term": $entry.get('_source').terms.OnDemand[0].priceDimensions[0].description,
+            "hourlyrate": $entry.get('_source').terms.OnDemand[0].priceDimensions[0].pricePerUnit.USD
+          }
+        })
+  $util.toJson($myMap)      
+    #end
+]
+
+```
+
+16. Before, we execute the AppSync query, we need to authenticate the user (via the cognito pool). Select `Query` in the AppSync panel and hit **Login with Userpools**.<br/>
+17. Get the Cognito App client id.
+<img src="images/aws-appsync-cognito3.png" /><br/>
+18. In the AppSync query panel, login using any cognito user.
+<img src="images/aws-appsync-cognito4.png" /><br/>
+19. Once successfully logged-in, execute the following query:
+```
+query testquery {
+  listProducts(searchstring: "Mumbai") {
+    id
+      attributes {
+        instanceType
+        vcpu
+        memory
+      }
+      ondemand {
+        term
+        hourlyrate
+      }
+
+  } 
+}
+```
+
+<a name="integration"></a>
+## VII. Integrate mobile application with AppSync.
