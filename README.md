@@ -379,3 +379,5 @@ query testquery {
 
 <a name="integration"></a>
 ## VII. Integrate mobile application with AppSync.
+1. Open the Cloud9 IDE.
+3. Edit `App.js`
