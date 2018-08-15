@@ -1,0 +1,133 @@
+{
+	"name": "ask-jeeves-2018-08-15-16-02-23",
+	"projectId": "eee7e8aa-2ad7-402f-a41d-f90a7e23789a",
+	"region": "ap-southeast-1",
+	"state": "NORMAL",
+	"createdDate": "2018-08-15T16:02:27.847Z",
+	"lastUpdatedDate": "2018-08-15T16:05:41.774Z",
+	"consoleUrl": "https://console.aws.amazon.com/mobilehub/home#/eee7e8aa-2ad7-402f-a41d-f90a7e23789a/build",
+	"resources": [
+		{
+			"type": "AWS::Pinpoint::AnalyticsApplication",
+			"name": "askjeeves20180815160223_MobileHub",
+			"arn": "e28162aa22074fe7ba053e9258ba4579",
+			"feature": "analytics",
+			"attributes": {
+				"lastUpdateRequestID": "af05eea5-5eef-44bc-baa0-27af096444e5"
+			}
+		},
+		{
+			"type": "AWS::IAM::Policy",
+			"name": "askjeeves_mobileanalytics_MOBILEHUB_1085157943",
+			"arn": null,
+			"feature": "analytics",
+			"attributes": {
+				"authType": "authenticated",
+				"lastUpdateRequestID": "ca7100a8-54a8-4dfe-8702-abb7d218499f",
+				"role": "askjeeves_auth_MOBILEHUB_1085157943"
+			}
+		},
+		{
+			"type": "AWS::Cognito::IdentityPool",
+			"name": "askjeeves_MOBILEHUB_1085157943",
+			"arn": "ap-southeast-1:6a58b6e0-aaf1-4a08-b01d-123f3c2e9713",
+			"feature": "user-signin",
+			"attributes": {
+				"lastUpdateRequestID": "ca7100a8-54a8-4dfe-8702-abb7d218499f",
+				"poolid": "ap-southeast-1:6a58b6e0-aaf1-4a08-b01d-123f3c2e9713",
+				"roleARNs": "arn:aws:iam::987323970905:role/askjeeves_auth_MOBILEHUB_1085157943"
+			}
+		},
+		{
+			"type": "AWS::IAM::Role",
+			"name": "askjeeves_smsverification_MOBILEHUB_1085157943",
+			"arn": "arn:aws:iam::987323970905:role/service-role/askjeeves_smsverification_MOBILEHUB_1085157943",
+			"feature": "user-signin",
+			"attributes": {
+				"lastUpdateRequestID": "ca7100a8-54a8-4dfe-8702-abb7d218499f",
+				"user-pools-role-key": "user-pools-execution-role"
+			}
+		},
+		{
+			"type": "AWS::Cognito::UserPool",
+			"name": "askjeeves_userpool_MOBILEHUB_1085157943",
+			"arn": "ap-southeast-1_T3TQPOGW3",
+			"feature": "user-signin",
+			"attributes": {
+				"alias-attributes": "[\"preferred_username\"]",
+				"lastUpdateRequestID": "ca7100a8-54a8-4dfe-8702-abb7d218499f",
+				"mfa-configuration": "OFF",
+				"password-policy": "{\"minimumLength\":6,\"requireUppercase\":false,\"requireLowercase\":true,\"requireNumbers\":true,\"requireSymbols\":false}",
+				"region": "ap-southeast-1",
+				"user-pools-client-id": "...redacted_230807215...",
+				"user-pools-client-secret": "...redacted_2076660505...",
+				"user-pools-id": "ap-southeast-1_T3TQPOGW3",
+				"user-pools-web-client-id": "4vngsks71qm65ujmuaei7kbfqm"
+			}
+		},
+		{
+			"type": "AWS::IAM::Role",
+			"name": "askjeeves_auth_MOBILEHUB_1085157943",
+			"arn": "arn:aws:iam::987323970905:role/askjeeves_auth_MOBILEHUB_1085157943",
+			"feature": "user-signin",
+			"attributes": {
+				"authType": "authenticated",
+				"lastUpdateRequestID": "ca7100a8-54a8-4dfe-8702-abb7d218499f"
+			}
+		},
+		{
+			"type": "AWS::S3::Bucket",
+			"name": "askjeeves-hosting-mobilehub-1085157943",
+			"arn": null,
+			"feature": "hosting",
+			"attributes": {
+				"lastUpdateRequestID": "af05eea5-5eef-44bc-baa0-27af096444e5",
+				"region": "ap-southeast-1",
+				"s3-bucket-console-url": "https://s3.console.aws.amazon.com/s3/buckets/askjeeves-hosting-mobilehub-1085157943",
+				"s3-bucket-website-url": "https://s3.amazonaws.com/askjeeves-hosting-mobilehub-1085157943"
+			}
+		},
+		{
+			"type": "AWS::CloudFront::Distribution",
+			"name": "d1k7vf4uuns6af.cloudfront.net",
+			"arn": null,
+			"feature": "hosting",
+			"attributes": {
+				"id": "EDW62Q352BJ9L",
+				"lastUpdateRequestID": "af05eea5-5eef-44bc-baa0-27af096444e5"
+			}
+		},
+		{
+			"type": "AWS::IAM::Policy",
+			"name": "askjeeves_hosting_MOBILEHUB_1085157943",
+			"arn": null,
+			"feature": "hosting",
+			"attributes": {
+				"authType": "authenticated",
+				"lastUpdateRequestID": "ca7100a8-54a8-4dfe-8702-abb7d218499f",
+				"role": "askjeeves_auth_MOBILEHUB_1085157943"
+			}
+		},
+		{
+			"type": "AWS::S3::Bucket",
+			"name": "askjeeves-deployments-mobilehub-1085157943",
+			"arn": null,
+			"feature": "common",
+			"attributes": {
+				"region": "ap-southeast-1",
+				"s3-bucket-console-url": "https://s3.console.aws.amazon.com/s3/buckets/askjeeves-deployments-mobilehub-1085157943"
+			}
+		},
+		{
+			"type": "AWS::CloudFormation::Stack",
+			"name": "Development",
+			"arn": null,
+			"feature": "cloud-api",
+			"attributes": {
+				"primary": "true",
+				"region": "ap-southeast-1",
+				"stateSummary": "NOT_YET_DEPLOYED"
+			}
+		}
+	]
+}
