@@ -11,11 +11,6 @@ import { ApolloProvider } from 'react-apollo';
 import SearchScreen from './src/Searchscreen/SearchScreen'
 import TotalCost from './src/TotalCost/TotalCost'
 
-import { withAuthenticator } from 'aws-amplify-react-native';
-import Amplify from 'aws-amplify';
-import aws_exports from './aws-exports';
-Amplify.configure(aws_exports);
-
 const client = new AWSAppSyncClient({
   url: "https://k5evtrl4undvng2tspppikphpa.appsync-api.ap-southeast-1.amazonaws.com/graphql",
   region: "ap-southeast-1",
@@ -70,8 +65,8 @@ const WithProvider = () => (
   </ApolloProvider>
 );
 
-//export default WithProvider
-export default withAuthenticator(WithProvider);
+export default WithProvider
+//export default withAuthenticator(WithProvider);
 
 const styles = StyleSheet.create({
   container: {
