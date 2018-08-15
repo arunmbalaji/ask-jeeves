@@ -6,32 +6,36 @@ import { compose, graphql } from 'react-apollo'
 import { ListItem } from 'react-native-elements'
 import gql from 'graphql-tag'
 
-const SearchProducts = gql`
-  query Test ($searchQuery: String) {
-    listProducts(searchstring: $searchQuery) {
-      id
-      attributes {
-        instanceType
-        vcpu
-        memory
-        location
-      }
-    }
-  }
-`
-const ListProducts = gql`
-  query {
-    listProducts {
-      id
-      attributes {
-        instanceType
-        vcpu
-        memory
-        location
-      }
-    }
-  }
-`
+//Uncomment below lines
+/*These are the queries will be used by the component to show the
+search results. These are exactly same as the appsync queries*/
+
+// const SearchProducts = gql`
+//   query Test ($searchQuery: String) {
+//     listProducts(searchstring: $searchQuery) {
+//       id
+//       attributes {
+//         instanceType
+//         vcpu
+//         memory
+//         location
+//       }
+//     }
+//   }
+// `
+// const ListProducts = gql`
+//   query {
+//     listProducts {
+//       id
+//       attributes {
+//         instanceType
+//         vcpu
+//         memory
+//         location
+//       }
+//     }
+//   }
+// `
 
 class SearchScreen extends React.Component {
 
@@ -51,17 +55,6 @@ class SearchScreen extends React.Component {
     let { searchName } = this.state;
     this.props.onSearch(searchName);
   }
-  //   TestSubmitHandler = () => {
-  //   if(this.state.searchName.trim === ""){
-  //   return;
-  //   }
-  // this.setState(prevState => {
-  //     return{
-  //       searches : prevState.searchName
-  //     };
-  //   });
-  //   };
-
 
   static NavigationOptions = {
     title: 'Home',
@@ -70,9 +63,6 @@ class SearchScreen extends React.Component {
 
   render() {
     let { items } = this.props;
-    // console.log("In main component")
-    // console.log(this.props)
-    // console.log(items)
     return (
       <View>
         <View style={styles.inputContainer}>
@@ -98,43 +88,33 @@ class SearchScreen extends React.Component {
   }
 }
 
-export default compose(graphql(ListProducts, {
-  options: data => ({
-    fetchPolicy: 'cache-and-network'
-  }),
-  props: props => ({
-    items: props.data.listProducts,
-    onSearch: searchQuery => {
-      searchQuery = searchQuery.toLowerCase()
-      // console.log("Enter  here")
-      // console.log(searchQuery)
-      // console.log(props.data);
-      return props.data.fetchMore({
-        // query: searchQuery === '' ? ListProducts : SearchProducts,
-        query: SearchProducts,
-        variables: {
-          searchQuery
-        },
-        // updateQuery: (previousResult, {fetchMoreResult}) => ({
-        //   ...previousResult,
-        //   ListProducts: {
-        //     ...previousResult.listIceCreams,
-        //     attributes: fetchMoreResult.listProducts.attributes
-        //   }
-        // })
-        updateQuery: (prev, { fetchMoreResult }) => ({
-          ...fetchMoreResult
-        })
-      })
-    },
-  })
-})
-)(SearchScreen);
+//Uncomment the below lines
+/*Below lines are the actual higher order react native component to invoke
+the query against the appsync api , gets the results, and updates the cache. 
+These results are passed to the flatview component to display in the app*/
+
+// export default compose(graphql(ListProducts, {
+//   options: data => ({
+//     fetchPolicy: 'cache-and-network'
+//   }),
+//   props: props => ({
+//     items: props.data.listProducts,
+//     onSearch: searchQuery => {
+//       searchQuery = searchQuery.toLowerCase()
+//       return props.data.fetchMore({
+//         query: SearchProducts,
+//         variables: {
+//           searchQuery
+//         },
+//         updateQuery: (prev, { fetchMoreResult }) => ({
+//           ...fetchMoreResult
+//         })
+//       })
+//     },
+//   })
+// })
+// )(SearchScreen);
 const styles = StyleSheet.create({
-  // cart: {
-  //   width: "10%",
-  //   alignItems: 'center',
-  // },
   container: {
     alignItems: "right",
     flexDirection: "column",

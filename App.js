@@ -3,15 +3,12 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, TextInput, ImageBackground} from 'react-native';
 import { createStackNavigator ,createBottomTabNavigator} from 'react-navigation';
 
+/*These lines are to use appsync sdk - apollo based library to access appsync queries/mutations and inline cache */
 import AWSAppSyncClient from "aws-appsync";
 import { Rehydrated } from 'aws-appsync-react';
 import { ApolloProvider } from 'react-apollo';
 
 import SearchScreen from './src/Searchscreen/SearchScreen'
-import ListInstances from './src/ListInstances/ListInstances'
-import InstanceDetail from './src/InstanceDetail/InstanceDetail1'
-
-import InstanceNumber1 from './src/InstanceNumber/InstanceNumber1'
 import TotalCost from './src/TotalCost/TotalCost'
 
 
@@ -28,10 +25,6 @@ const client = new AWSAppSyncClient({
 
 const NavigationApp = createStackNavigator({
     SearchScreen: { screen : SearchScreen},
-    ListInstances: {screen : ListInstances},
-    InstanceDetail: {screen : InstanceDetail},
-
-    InstanceNumber1: {screen: InstanceNumber1},
     TotalCost: {screen :TotalCost},
 });
 
@@ -64,13 +57,16 @@ const TabNavigation = createBottomTabNavigator({
     }
 });
 
-const WithProvider = () => (
-  <ApolloProvider client={client}>
-    <Rehydrated>
+/*Uncomment the below lines*/
+/*Below lines enable react native components to make use of the Apollo 
+graphql client and the rehydrated cache */
+//const WithProvider = () => (
+//  <ApolloProvider client={client}>
+//    <Rehydrated>
       <TabNavigation />
-    </Rehydrated>
-  </ApolloProvider>
-);
+//    </Rehydrated>
+//  </ApolloProvider>
+//);
 
 export default WithProvider
 
