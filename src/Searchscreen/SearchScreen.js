@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View, TextInput, Button, ImageBackground, Image, FlatList } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
@@ -36,12 +35,11 @@ const ListProducts = gql`
     }
   }
 `
-
 class SearchScreen extends React.Component {
 
   state = {
     searchName: ''//,
-
+    //searches:[]
   }
 
   searchNameChangedHandler = (val) => {
@@ -59,7 +57,6 @@ class SearchScreen extends React.Component {
   static NavigationOptions = {
     title: 'Home',
   };
-
 
   render() {
     let { items } = this.props;
@@ -87,7 +84,6 @@ class SearchScreen extends React.Component {
     );
   }
 }
-
 //Uncomment the below lines
 /*Below lines are the actual higher order react native component to invoke
 the query against the appsync api , gets the results, and updates the cache. 
@@ -114,6 +110,7 @@ export default compose(graphql(ListProducts, {
   })
 })
 )(SearchScreen);
+
 const styles = StyleSheet.create({
   container: {
     alignItems: "right",
@@ -148,5 +145,3 @@ const styles = StyleSheet.create({
     resizeMode: 'cover'
   },
 });
-
-
