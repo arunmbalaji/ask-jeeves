@@ -217,10 +217,14 @@ schema {
 <img src="images/aws-appsync-data-source2.png" /><br/>
 
 9. Now, lets set up AppSync integration with Cognito for authentication. AppSync => Settings => Select `Cognito user pools`. <br/>
-<img src="images/aws-appsync-data-cognito1.png" /><br/>
+<img src="images/aws-appsync-cognito1.png" /><br/>
 
 10. Select the `Cognito user pool created via awsmobile-cli`.<br/>
-<img src="images/aws-appsync-data-cognito2.png" />
+<img src="images/aws-appsync-cognito2.png" />
+
+11. Enable AppSync logging.
+<img src="images/aws-appsync-logging.png" />
+
 
 
 
