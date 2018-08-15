@@ -213,6 +213,10 @@ schema {
 6. Save schema.
 7. Next, let's set up the AppSync data sources. Select `Data sources` on the left side.<br/>
 <img src="images/aws-appsync-data-source1.png" />
+<img src="images/aws-appsync-data-source2.png" />
+
+8. Now, lets set up AppSync integration with Cognito for authentication.<br/>
+<img src="images/aws-appsync-data-source1.png" />
 
 
 ## VI. Verifying your Elasticsearch cluster installation
