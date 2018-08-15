@@ -172,6 +172,7 @@ This will have created some backend resources including some S3 buckets.  You sh
 > * Password character requirements lowercase, numbers
 
 >**awsmobile push**
+
 This will have created a new Cognito user pool that you can view in the AWS console.  This is used to manage logins to our App.  
 
 Next, let us create a new Cognito user.
