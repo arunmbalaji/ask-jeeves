@@ -3,17 +3,6 @@ import { TabNavigator } from 'react-navigation'
 import { Image, StyleSheet } from 'react-native'
 
 import SearchScreen from './src/Searchscreen/SearchScreen'
-import ListInstances from './src/ListInstances/ListInstances'
-import InstanceDetail from './src/InstanceDetail/InstanceDetail1'
-import InstanceDetail2 from './src/InstanceDetail/InstanceDetail2'
-import InstanceDetail3 from './src/InstanceDetail/InstanceDetail3'
-import InstanceDetail4 from './src/InstanceDetail/InstanceDetail4'
-import InstanceDetail5 from './src/InstanceDetail/InstanceDetail5'
-import InstanceNumber1 from './src/InstanceNumber/InstanceNumber1'
-import InstanceNumber2 from './src/InstanceNumber/InstanceNumber2'
-import InstanceNumber3 from './src/InstanceNumber/InstanceNumber3'
-import InstanceNumber4 from './src/InstanceNumber/InstanceNumber4'
-import InstanceNumber5 from './src/InstanceNumber/InstanceNumber5'
 
 
 import TotalCost from './src/TotalCost/TotalCost'
