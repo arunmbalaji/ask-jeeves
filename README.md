@@ -385,7 +385,7 @@ Additional queries
 ## VII. Integrate mobile application with AppSync.
 1. Open the AppSync Console.<br/>
 2. Click the APIs<br/>
-3. Selec the API you have created<br/>
+3. Select the API you have created<br/>
 4. Scroll down to the bottom of the page<br/>
 5. Select the React Native option<br/>
 6. Download the AppSync.js file to your local laptop and upload it under ask-jeeves/ folder via cloud9.In cloud9, you can upload local files from the files menu<br/>
@@ -404,7 +404,7 @@ const client = new AWSAppSyncClient({
       apiKey: AppSync.apiKey,
   },
 });
-```<br />
+```
 9. Once updated, npm start and verify the applcation.<br /><br />
 
 ##Appendix A ElasticSearch queries to check
