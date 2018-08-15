@@ -166,10 +166,11 @@ This will have created some backend resources including some S3 buckets.  You sh
 >**awsmobile user-signin enable -p**
 
 > * Sign-in is currently disabled, what do you want to do next Go to advanced settings
-> * Which sign-in method you want to configure Cognito UserPools (currently disabled)
-> * How are users going to login Username
+> * Which sign-in method you want to configure Cognito UserPools (enabled)
+> * How are users going to login? Username
 > * Password minimum length (number of characters) 6
-> * Password character requirements lowercase, numbers
+> * Password character requirements? lowercase, numbers
+> NOTE: MFA should not be enabled.
 
 >**awsmobile push**
 
