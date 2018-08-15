@@ -176,7 +176,14 @@ This will have created some backend resources including some S3 buckets.  You sh
 > * Password character requirements lowercase, numbers
 
 >**awsmobile push**
-This will have created a new Cognito user pool that you can view in the AWS console.  This is used to manage logins to our App.  Now it's simple to add authentication:
+This will have created a new Cognito user pool that you can view in the AWS console.  This is used to manage logins to our App.  
+
+Next, let us create a new Cognito user.
+* Go to Cognito service in the AWS console and select `Manage Userpools`.
+* Select the userpool we created via awsmobile. 
+* Select **users and groups** and create a new user.
+
+Now it's simple to add authentication:
 
 In App.js, below the React Native imports let’s import the withAuthenticator HOC (Higher Order Component):
 ```
@@ -346,13 +353,28 @@ Response mapping template:
 
 ```
 
-16. 
+16. Before, we execute the AppSync query, we need to authenticate the user (via the cognito pool). Select `Query` in the AppSync panel and hit **Login with Userpools**.<br/>
+17. Get the Cognito App client id.
+<img src="images/aws-appsync-cognito3.png" /><br/>
+18. In the AppSync query panel, login using any cognito user.
+<img src="images/aws-appsync-cognito4.png" /><br/>
+19. Once successfully logged, execute the following query:
+```
+query testquery {
+  listProducts(searchstring: "Mumbai") {
+    id
+      attributes {
+        instanceType
+        vcpu
+        memory
+      }
+      ondemand {
+        term
+        hourlyrate
+      }
 
+  } 
+}
+```
 
-
-## VI. Verifying your Elasticsearch cluster installation
-
-1.	Open the cloud9 terminal
-2.	Issue the below command `curl -XGET <your es domain name – copy from cloudformation output>/amazonec2_new/_count`
-<img src="images/aws-cloud9-es1.png" />
-<img src="images/aws-cloud9-es2.png" />
+## VII. Integrate mobile application with AppSync.
