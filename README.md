@@ -372,18 +372,22 @@ query testquery {
   } 
 }
 ```
-```
-20. Additional queries activity<br />
+
+20. Additional queries activity. Refer the Appendix B for the reference links for play around resolver templates. Resolver templates give lot of flexibility to play around the responses and requests of API requests.<br />
 ###### Activity 1
+```
 a. The above query retrieves only instanceType/vcpu/memory <br />
 b. Modify the query and resolvers to retrieve the pricing details also from the elastic search. Refer the Appendix A for the elasticsearch query details <br />
-##### Activity 2
-a. Add a new query to the schema which retrieves the individual document by passing the id <br />
-##### Activity 3
-a. Create a new query to search the elastic search different indices based on the AWS product type passed as a argument. for Eg. if we pass, EC2 , it should search against amazonec2_NEW index, if we pass RDS, it should search against amazonrds.
-
-21. Refer the Appendix B for the reference links for play around resolver templates. Resolver templates give lot of flexibility to play around the responses and requests of API requests. 
 ```
+##### Activity 2
+```
+a. Add a new query to the schema which retrieves the individual document by passing the id <br />
+```
+##### Activity 3
+```
+a. Create a new query to search the elastic search different indices based on the AWS product type passed as a argument. for Eg. if we pass, EC2 , it should search against amazonec2_NEW index, if we pass RDS, it should search against amazonrds.
+``` 
+
 
 <a name="integration"></a>
 ## VII. Integrate mobile application with AppSync.
