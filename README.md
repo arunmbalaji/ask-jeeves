@@ -99,9 +99,10 @@ To participate with your mobile you need to have the Expo Client installed (Andr
 <a name="clone-mobile-code"></a>
 ## V. Mobile application and Cognito Authentication.
 
+0. Go to your Cloud9 terminal.
 1. `git clone https://github.com/arunmbalaji/ask-jeeves.git`
 2. cd to the project directory "ask-jeeves". 
-3. `npm install; npm start`. 
+3. `npm install`. 
 4. We can then install some dependencies:
 
 >npm install -g awsmobile-cli
@@ -165,12 +166,14 @@ This will have created some backend resources including some S3 buckets.  You sh
 >**awsmobile user-signin enable -p**
 
 > * Sign-in is currently disabled, what do you want to do next Go to advanced settings
-> * Which sign-in method you want to configure Cognito UserPools (currently disabled)
-> * How are users going to login Username
+> * Which sign-in method you want to configure Cognito UserPools (enabled)
+> * How are users going to login? Username
 > * Password minimum length (number of characters) 6
-> * Password character requirements lowercase, numbers
+> * Password character requirements? lowercase, numbers
+> NOTE: MFA should not be enabled.
 
 >**awsmobile push**
+
 This will have created a new Cognito user pool that you can view in the AWS console.  This is used to manage logins to our App.  
 
 Next, let us create a new Cognito user.
