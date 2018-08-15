@@ -7,7 +7,7 @@
 | 3.   | [Install Expo mobile client](#install-expo)
 | 4.   | [QR Code friendly Cloud9 theme](#customize-cloud9)|
 | 5.   | [Mobile application and Cognito authentication](#clone-mobile-code)
-| 6.   | [AppSync Schema ]|
+| 6.   | [AppSync Schema ](#appsync-schema)|
 | 7.   | [Integration and testing ]|
 
 <a name="cloud9-ssh-key"></a>
@@ -358,7 +358,7 @@ Response mapping template:
 <img src="images/aws-appsync-cognito3.png" /><br/>
 18. In the AppSync query panel, login using any cognito user.
 <img src="images/aws-appsync-cognito4.png" /><br/>
-19. Once successfully logged, execute the following query:
+19. Once successfully logged-in, execute the following query:
 ```
 query testquery {
   listProducts(searchstring: "Mumbai") {
