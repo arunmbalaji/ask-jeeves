@@ -10,6 +10,8 @@
 | 6.   | [AppSync Schema ](#appsync-schema)|
 | 7.   | [Integration and testing ](#integration)|
 
+<img src="images/aws-arch-diagram.png" />
+
 <a name="cloud9-ssh-key"></a>
 ##  I. Generate Cloud9 SSH Key
 
@@ -354,7 +356,7 @@ Response mapping template:
 ```
 
 16. Before, we execute the AppSync query, we need to authenticate the user (via the cognito pool). Select `Query` in the AppSync panel and hit **Login with Userpools**.<br/>
-17. Get the Cognito App client id.
+17. Get the Cognito App client id (web version).
 <img src="images/aws-appsync-cognito3.png" /><br/>
 18. In the AppSync query panel, login using any cognito user.
 <img src="images/aws-appsync-cognito4.png" /><br/>
