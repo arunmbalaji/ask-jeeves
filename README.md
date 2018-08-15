@@ -20,13 +20,13 @@
   <img src="images/aws-cloud9-create.png" width="33%" />
 
 5. Give any appropriate name and description to your environment. Click on **Next**.
-6. In the next page, select the option **Connect and run in remote server (SSH)**. Scroll down and expand View Public SSH key. Click **Copy key to clip board**. Once you have copied the key, please leave this screen intact. We will come back once the EC2 creation completed. 
+6. In the next page, select the option **Connect and run in remote server (SSH)**. Scroll down and expand View Public SSH key. Click **Copy key to clip board**. Once you have copied the key, please leave this screen intact. We will come back once the cloudformation stack creation completed (see next step). 
 <img src="images/aws-cloud9-remote-server.png" width="33%" />
 
 <a name="run-cfn"></a>
 ##  II. Development Stack creation
 1. Open a new browser tab and instantiate this CloudFormation template: 
-<a href="https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/new?templateURL=https://s3-ap-southeast-1.amazonaws.com/techsummit2018appsync/prereqscfn.json" target="_blank">
+<a href="https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/new?templateURL=https://s3-ap-southeast-1.amazonaws.com/techsummit2018appsync/prereqscfn.json" target="_new">
   <img src="images/aws-cloudformation-button.png" width="150" />
 </a>
 
