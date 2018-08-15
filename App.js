@@ -3,11 +3,10 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, TextInput, ImageBackground} from 'react-native';
 import { createStackNavigator ,createBottomTabNavigator} from 'react-navigation';
 
-/*Uncomment below lines */
 /*These lines are to use appsync sdk - apollo based library to access appsync queries/mutations and inline cache */
-//import AWSAppSyncClient from "aws-appsync";
-//import { Rehydrated } from 'aws-appsync-react';
-//import { ApolloProvider } from 'react-apollo';
+import AWSAppSyncClient from "aws-appsync";
+import { Rehydrated } from 'aws-appsync-react';
+import { ApolloProvider } from 'react-apollo';
 
 import SearchScreen from './src/Searchscreen/SearchScreen'
 import TotalCost from './src/TotalCost/TotalCost'
