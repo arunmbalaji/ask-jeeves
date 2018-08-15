@@ -41,7 +41,7 @@ class SearchScreen extends React.Component {
 
   state = {
     searchName: ''//,
-    //searches:[]
+
   }
 
   searchNameChangedHandler = (val) => {
@@ -93,27 +93,27 @@ class SearchScreen extends React.Component {
 the query against the appsync api , gets the results, and updates the cache. 
 These results are passed to the flatview component to display in the app*/
 
-// export default compose(graphql(ListProducts, {
-//   options: data => ({
-//     fetchPolicy: 'cache-and-network'
-//   }),
-//   props: props => ({
-//     items: props.data.listProducts,
-//     onSearch: searchQuery => {
-//       searchQuery = searchQuery.toLowerCase()
-//       return props.data.fetchMore({
-//         query: SearchProducts,
-//         variables: {
-//           searchQuery
-//         },
-//         updateQuery: (prev, { fetchMoreResult }) => ({
-//           ...fetchMoreResult
-//         })
-//       })
-//     },
-//   })
-// })
-// )(SearchScreen);
+export default compose(graphql(ListProducts, {
+  options: data => ({
+    fetchPolicy: 'cache-and-network'
+  }),
+  props: props => ({
+    items: props.data.listProducts,
+    onSearch: searchQuery => {
+      searchQuery = searchQuery.toLowerCase()
+      return props.data.fetchMore({
+        query: SearchProducts,
+        variables: {
+          searchQuery
+        },
+        updateQuery: (prev, { fetchMoreResult }) => ({
+          ...fetchMoreResult
+        })
+      })
+    },
+  })
+})
+)(SearchScreen);
 const styles = StyleSheet.create({
   container: {
     alignItems: "right",
@@ -150,5 +150,3 @@ const styles = StyleSheet.create({
 });
 
 
-
-    //export default SearchScreen;
