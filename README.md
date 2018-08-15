@@ -5,10 +5,10 @@
 | 1.   | [Generate Cloud9 SSH Key](#cloud9-ssh-key) |
 | 2.   | [Setup EC2, Cloud9, Elasticsearch, ...](#run-cfn) |
 | 3.   | [Install Expo mobile client](#install-expo)
-| 4.   | [QR Code friendly Cloud9 theme](#customize-cloud9)|
+| 4.   | [QR code friendly Cloud9 theme](#customize-cloud9)|
 | 5.   | [Mobile application and Cognito authentication](#clone-mobile-code)
 | 6.   | [AppSync Schema ](#appsync-schema)|
-| 7.   | [Integration and testing ]|
+| 7.   | [Integration and testing ](#integration)|
 
 <a name="cloud9-ssh-key"></a>
 ##  I. Generate Cloud9 SSH Key
@@ -377,4 +377,5 @@ query testquery {
 }
 ```
 
+<a name="integration"></a>
 ## VII. Integrate mobile application with AppSync.
