@@ -172,58 +172,61 @@ This will have created some backend resources including some S3 buckets.  You sh
 1. In your AWS console, go to AppSync service.
 2. Click **Create API**. Select `Author from scratch`. 
 3. Enter name of the API as: `TechSummit-AppSync-Workshop` and **Create**.
-4. Select 'Schema' on the left-hand panel.
-5. Paste the following code in the Schema console.
+4. Next, let's set up the AppSync data sources. Select `Data sources` on the left side.<br/>
+<img src="images/aws-appsync-data-source1.png" /><br/>
+5. After the data source is created, you will see:<br/>
+<img src="images/aws-appsync-data-source2.png" /><br/>
+
+6. Now, lets set up AppSync integration with Cognito for authentication. AppSync => Settings => Select `Cognito user pools`. <br/>
+<img src="images/aws-appsync-cognito1.png" /><br/>
+
+7. Select the `Cognito user pool created via awsmobile-cli`.<br/>
+<img src="images/aws-appsync-cognito2.png" />
+
+8. Enable AppSync logging.
+<img src="images/aws-appsync-logging.png" />
+
+9. Save the settings.
+
+10. Select 'Schema' on the left-hand panel.
+11. Paste the following code in the Schema console.
 ```
 type Query {
-	listProducts(searchstring: String): [item]
-	getec2details(id: ID!): item
+  listProducts(searchstring: String): [item]
+  getec2details(id: ID!): item
 }
 
 type ec2attributes {
-	instanceType: String
-	location: String
-	servicecode: String
-	memory: String
-	vcpu: String
-	tenancy: String
-	operatingSystem: String
-	preInstalledSw: String
+  instanceType: String
+  location: String
+  servicecode: String
+  memory: String
+  vcpu: String
+  tenancy: String
+  operatingSystem: String
+  preInstalledSw: String
 }
 
 type item {
-	id: ID!
-	attributes: ec2attributes
-	ondemand: pricing
-	reserved3year: pricing
+  id: ID!
+  attributes: ec2attributes
+  ondemand: pricing
+  reserved3year: pricing
 }
 
 type pricing {
-	term: String
-	hourlyrate: String
-	monthlyrate: String
-	yearlyrate: String
-	upfrontfee: String
+  term: String
+  hourlyrate: String
+  monthlyrate: String
+  yearlyrate: String
+  upfrontfee: String
 }
 
 schema {
-	query: Query
+  query: Query
 }
 ```
-6. Save schema.
-7. Next, let's set up the AppSync data sources. Select `Data sources` on the left side.<br/>
-<img src="images/aws-appsync-data-source1.png" /><br/>
-8. After the data source is created, you will see:<br/>
-<img src="images/aws-appsync-data-source2.png" /><br/>
-
-9. Now, lets set up AppSync integration with Cognito for authentication. AppSync => Settings => Select `Cognito user pools`. <br/>
-<img src="images/aws-appsync-cognito1.png" /><br/>
-
-10. Select the `Cognito user pool created via awsmobile-cli`.<br/>
-<img src="images/aws-appsync-cognito2.png" />
-
-11. Enable AppSync logging.
-<img src="images/aws-appsync-logging.png" />
+12. Save schema.
 
 
 
