@@ -407,7 +407,7 @@ const client = new AWSAppSyncClient({
 ```
 9. Once updated, npm start and verify the applcation.<br /><br />
 
-##Appendix A ElasticSearch queries to check
+## Appendix A ElasticSearch queries to check
 1. To execute the queries, go to elasticsearch console and open the elasticsearch Kibana URL <br />
 2. Once Kibana opens, click the Dev tools option.<br />
 3. One by one you can copy paste the below queries to check the schema and data <br />
