@@ -57,16 +57,16 @@ const TabNavigation = createBottomTabNavigator({
     }
 });
 
-/*Uncomment the below lines*/
+
 /*Below lines enable react native components to make use of the Apollo 
 graphql client and the rehydrated cache */
-//const WithProvider = () => (
-//  <ApolloProvider client={client}>
-//    <Rehydrated>
+const WithProvider = () => (
+ <ApolloProvider client={client}>
+   <Rehydrated>
       <TabNavigation />
-//    </Rehydrated>
-//  </ApolloProvider>
-//);
+    </Rehydrated>
+  </ApolloProvider>
+);
 
 export default WithProvider
 
