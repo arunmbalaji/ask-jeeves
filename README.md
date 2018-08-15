@@ -227,6 +227,92 @@ schema {
 }
 ```
 12. Save schema.
+13. Attach `Resolvers` to `listProducts` query.<br/>
+<img src="images/aws-appsync-resolver1.png" /><br/>
+click **Attach**.
+14. Add the request and response templates. <br/>
+<img src="images/aws-appsync-resolver2.png" /><br/>
+15. Request template:
+```
+#** 
+  The 'params' key accepts any valid Elasticsearch DSL expression. 
+  You must replace the <index>, <type>, and <field> placeholders with actual values. 
+*#
+{
+#if($util.isNullOrEmpty(${context.args.searchstring}))
+  #set($sear="*")
+#else 
+  #set($sear=${context.args.searchstring})
+#end
+    "version":"2017-02-28",
+    "operation":"GET",
+    "path":"/amazonec2_new/_search",
+    "params":{
+      "body": {
+            "from": 0,
+            "size": 20,
+        "_source": [  "product.attributes.instanceType",
+                    "product.attributes.operatingSystem",
+                            "product.attributes.vcpu",
+                            "product.attributes.memory",
+                            "product.attributes.location",
+                            "product.attributes.tenancy",
+                            "product.attributes.preInstalledSw",
+                            "product.attributes.servicecode",
+                            "terms.OnDemand"
+                        ],
+        "query": {
+            "query_string" : {
+              "fields" : ["product.attributes.vcpu",
+                      "product.attributes.memory",
+                            "product.attributes.location",
+                            "product.attributes.tenancy",
+              "product.attributes.operatingSystem",
+                            "product.attributes.preInstalledSw",
+                            "product.attributes.instanceType"
+                            ],
+              "query" : "${sear}"
+          }
+      }
+
+      }
+    }
+}
+```
+
+Response Template:
+```
+#** 
+  $context.result contains the full response of the Elasticsearch query.
+  Select a subset of information or iterate through hits to return the
+  same shape as is expected by this field.
+*#
+[
+    #foreach($entry in $context.result.hits.hits) 
+        ## $velocityCount starts at 1 and increments with the #foreach loop **
+        #if( $velocityCount > 1 ) , #end
+        #set( $myMap = {
+        "id": $entry.get('_id'),
+          "attributes": {
+            "instanceType": $entry.get('_source').product.attributes.instanceType,
+            "location": $entry.get('_source').product.attributes.location,
+            "servicecode": $entry.get('_source').product.attributes.servicecode,
+            "memory": $entry.get('_source').product.attributes.memory,
+            "vcpu": $entry.get('_source').product.attributes.vcpu,
+            "operatingSystem": $entry.get('_source').product.attributes.operatingSystem,
+            "tenancy": $entry.get('_source').product.attributes.tenancy,
+            "preInstalledSw": $entry.get('_source').product.attributes.preInstalledSw
+          },
+          "ondemand": {
+            "term": $entry.get('_source').terms.OnDemand[0].priceDimensions[0].description,
+            "hourlyrate": $entry.get('_source').terms.OnDemand[0].priceDimensions[0].pricePerUnit.USD
+          }
+        })
+  $util.toJson($myMap)      
+    #end
+]
+
+```
 
 
 
