@@ -376,8 +376,10 @@ query testquery {
 20. Additional queries activity. Refer the Appendix B for the reference links for play around resolver templates. Resolver templates give lot of flexibility to play around the responses and requests of API requests.<br />
 ###### Activity 1
 ```
-a. The above query retrieves only instanceType/vcpu/memory <br />
-b. Modify the query and resolvers to retrieve the pricing details also from the elastic search. Refer the Appendix A for the elasticsearch query details <br />
+a. The above query retrieves only instanceType/vcpu/memory 
+
+b. Modify the query and resolvers to retrieve the pricing details also from the elastic search. Refer the Appendix A for the elasticsearch query details 
+
 ```
 ##### Activity 2
 ```
