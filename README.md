@@ -375,19 +375,21 @@ query testquery {
 
 20. Additional queries activity. Refer the Appendix B for the reference links for play around resolver templates. Resolver templates give lot of flexibility to play around the responses and requests of API requests.<br />
 ###### Activity 1
-```
-a. The above query retrieves only instanceType/vcpu/memory 
+>
+>a. The above query retrieves only instanceType/vcpu/memory 
 
-b. Modify the query and resolvers to retrieve the pricing details also from the elastic search. Refer the Appendix A for the elasticsearch query details 
+>b. Modify the query and resolvers to retrieve the pricing details also from the elastic search. Refer >the Appendix A for the elasticsearch query details 
+>
 
-```
-##### Activity 2
-```
-a. Add a new query to the schema which retrieves the individual document by passing the id <br />
-```
+>##### Activity 2
+>
+>a. Add a new query to the schema which retrieves the individual document by passing the id 
+>
+
 ##### Activity 3
-```
-a. Create a new query to search the elastic search different indices based on the AWS product type passed as a argument. for Eg. if we pass, EC2 , it should search against amazonec2_NEW index, if we pass RDS, it should search against amazonrds.
+
+a. Create a new query to search the elastic search different indices based on the AWS product type passed as a argument. 
+for Eg. if we pass, EC2 , it should search against amazonec2_NEW index, if we pass RDS, it should search against amazonrds.
 ``` 
 
 
