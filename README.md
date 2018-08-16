@@ -9,8 +9,7 @@
 | 5.   | [Mobile application and Cognito authentication](#clone-mobile-code)
 | 6.   | [AppSync Schema ](#appsync-schema)|
 | 7.   | [Integration and testing ](#integration)|
-| #.   | [Appendix A - Elasticsearch Queries ](#AppendixA)|
-| #.   | [Appendix B - Resolver templates reference ](#AppendixB)|
+
 
 <img src="images/aws-arch-diagram.png" />
 
